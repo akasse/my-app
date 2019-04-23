@@ -1,21 +1,17 @@
-pipeline {
-    def mvnHome = tool name: 'Maven', type: 'maven'
-    agent any
-    stages {
+node {
+    stage('---SCM Checkout---') {
+             git 'https://github.com/akasse/my-app'
+        }
         stage('---clean---') {
-            steps {
-                sh "${mvnHome}/bin/mvn clean"
-            }
+             def mvnHome = tool name: 'Maven', type: 'maven'
+             sh "${mvnHome}/bin/mvn clean"
         }
         stage('--test--') {
-            steps {
-                sh "${mvnHome}/bin/mvn test"
-            }
+           def mvnHome = tool name: 'Maven', type: 'maven'
+           sh "${mvnHome}/bin/mvn test"
         }
         stage('--package--') {
-            steps {
-                sh "${mvnHome}/bin/mvn package"
-            }
+           def mvnHome = tool name: 'Maven', type: 'maven'
+           sh "${mvnHome}/bin/mvn package"
         }
-    }
 }
